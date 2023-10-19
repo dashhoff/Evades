@@ -1,6 +1,5 @@
 import pyautogui
 import time
-from numba import jit
 
 # Задержка перед началом работы бота (дайте игре время для загрузки)
 time.sleep(0.5)
@@ -9,34 +8,31 @@ pyautogui.center
 # Функции для нажатия клавиш W, A, S, D
 def press_w():
     print('Снизу')
-    pyautogui.moveTo(960, 640)
-    # pyautogui.keyDown('w')
-    # pyautogui.keyUp('w')
+    pyautogui.keyDown('w')
+    pyautogui.keyUp('w')
 
 
 def press_a():
     print('Справа')
-    pyautogui.moveTo(860, 540)
-    # pyautogui.keyDown('a')
-    # pyautogui.keyUp('a')
+    pyautogui.keyDown('a')
+    pyautogui.keyUp('a')
+
 
 def press_s():
     print('Сверху')
-    pyautogui.moveTo(960, 440)
-    # pyautogui.keyDown('s')
-    # pyautogui.keyUp('s')
+    pyautogui.keyDown('s')
+    pyautogui.keyUp('s')
+
 
 def press_d():
     print('Слева')
-    pyautogui.moveTo(1060, 540)
-    # pyautogui.keyDown('d')
-    # pyautogui.keyUp('d')
+    pyautogui.keyDown('d')
+    pyautogui.keyUp('d')
 
 
 # Функция для обнаружения врага и получения его координат
-jit(fastmath = True, NoPython = True, NoGIL = True)
 def detect_enemy_coordinates():
-    locate_enemy = pyautogui.locateOnScreen(r'C:\Users\mlavo\Desktop\Evades\Img\Enemy.png', confidence=0.7, region=(825, 425, 300, 300))
+    locate_enemy = pyautogui.locateOnScreen(r'C:\Users\mlavo\Desktop\Evades/img.png', confidence=0.8, region=(825, 425, 300, 300))
     if locate_enemy:
         enemy_x = locate_enemy.left + locate_enemy.width / 2
         enemy_y = locate_enemy.top + locate_enemy.height / 2
@@ -45,9 +41,7 @@ def detect_enemy_coordinates():
         return None
 
 # Основной цикл бота
-jit(fastmath = True, NoPython = True, NoGIL = True)
 while True:
-    timer = time.perf_counter()
     enemy_coordinates = detect_enemy_coordinates()  # Получаем координаты врага
 
     if enemy_coordinates:
@@ -68,8 +62,5 @@ while True:
         else:
             press_s()  # Враг сверху, двигаемся вниз
     else:
-        pyautogui.moveTo(960, 540)
         # Если враг не обнаружен, можно добавить другую логику или оставить пустым
         pass
-
-    print(time.perf_counter() - timer)

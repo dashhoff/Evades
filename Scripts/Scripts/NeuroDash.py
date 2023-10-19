@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 import pyautogui
-import time
-from numba import jit
 
 # Создайте список изображений, которые вы хотите найти
 image_paths = [
@@ -14,9 +12,7 @@ image_paths = [
 # Определите регион скриншота
 x, y, width, height = 825, 425, 300, 300
 
-jit(fastmath = True, NoPython = True, NoGIL = True)
 while True:
-    timer = time.perf_counter()
     for image_path in image_paths:
         # Загрузите изображение объекта, который вы хотите найти
         object_image = cv2.imread(image_path)
@@ -45,8 +41,6 @@ while True:
         # Ожидайте нажатия клавиши 'q' для выхода
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-    print(time.perf_counter() - timer)
 
 # Закройте окно и освободите ресурсы
 cv2.destroyAllWindows()
